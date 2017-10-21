@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <title>Out the door!</title>
     <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="public/countryInfo.js"></script>
+    <script type"text/javascript" src="public/weatherInfo.js"></script>
     <link rel="stylesheet" href="public/main.css">
   </head>
   <body>
@@ -13,20 +15,20 @@
         <h1>Where do you want to go today?</h1>
         <div id="drop-down-section"></div>
         <div>
-          <p> Region: <select id="regions"></select>
-            Country: <select id="countries"></select>
+          <p> Region: <select id="regions-list"></select>
+            Country: <select id="countries-list"></select>
           </p>
         </div>
         <!-- two drop downs of country and region or subregion-->
       </div>
 
-      <div id="primary">
+      <div id="primary" class="macro-container">
         <div id="p-info"></div> <!-- information on primary country -->
         <div id="p-secondary"></div><!-- weather?  -->
         <div id="p-map"></div> <!-- googlemap of the country in question -->
       </div>
 
-      <div id="secondary">
+      <div id="secondary" class="macro-container">
         <!-- divs with minimal detail for all the bordering countries...
         or if I can find it, countries you can fly direct to from this particular capital city. -->
       </div>

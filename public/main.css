@@ -1,5 +1,4 @@
-#drop-down-section{
+body{
   display: flex;
   flex-wrap: wrap;
-  background-color: salmon;
 }
