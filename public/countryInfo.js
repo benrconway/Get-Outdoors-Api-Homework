@@ -70,12 +70,14 @@ var countryRequest = function (countryName, map) {
     var country = JSON.parse(this.responseText);
     displayCountryDetails(country[0]);
 
-
     var lat = country[0].latlng[0];
     var long = country[0].latlng[1];
-    map.adjustZoom(country[0].area)
+    var area = country[0].area
+
+    map.adjustZoom(area)
     map.googleMap.setCenter(new google.maps.LatLng(lat ,long))
-    console.log("zoom", map.googleMap.getZoom());
+
+    weatherRequest(lat, long);
   })
   request.send();
 }
