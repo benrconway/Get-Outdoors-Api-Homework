@@ -46,7 +46,7 @@ var filterByRegion = function(regionName){
 var reloadLastCountry = function(map) {
   if(localStorage.getItem('savedSelection')){
     var savedCountry = JSON.parse(localStorage.getItem("savedSelection"));
-    countryRequest(savedCountry.name, map);
+    countryRequest(savedCountry.alpha3Code, map);
   }
 }
 
@@ -54,6 +54,47 @@ var save = function(itemToSave) {
   var jsonString = JSON.stringify(itemToSave);
   localStorage.setItem("savedSelection", jsonString)
 }
+
+var displayBordering = function(country){
+  var parentDiv = document.getElementById("secondary");
+  while(parentDiv.firstChild){parentDiv.removeChild(parentDiv.firstChild)}
+
+  var div = document.createElement("div");
+  var details = document.createElement("p")
+  details.innerHTML = "<b>" + country.name + "</b><br>Population: " +
+   country.population + ".<br>Languages spoken:";
+  div.appendChild(details);
+
+  var languages = country.languages;
+  var ul = document.createElement("ul");
+  languages.forEach(function(language){
+    var li = document.createElement("li");
+    li.innerText = language.nativeName + " (" + language.name + ").";
+    ul.appendChild(li)
+  })
+  div.appendChild(ul);
+  var img = document.createElement("img");
+  img.className = "flag-image";
+  img.src = country.flag;
+  div.appendChild(img);
+  parentDiv.appendChild(div)
+}
+
+var bordering = function(bordersWithArray){
+bordersWithArray.forEach(function(bordering){
+    var url = "https://restcountries.eu/rest/v2/alpha/"+ bordering;
+    var request = new XMLHttpRequest();
+    request.open("GET", url);
+
+    request.addEventListener("load", function() {
+      var country = JSON.parse(this.responseText);
+
+      displayBordering(country);
+    })
+    request.send()
+  })
+}
+
 
 var displayCountryDetails = function(country) {
 var parentDiv = document.getElementById("p-info");
@@ -73,7 +114,7 @@ parentDiv.appendChild(img);
 }
 
 var countryRequest = function (countryName, map) {
-  var queryUrl = "https://restcountries.eu/rest/v2/name/" + countryName.toLowerCase() + "?fullText=true"
+  var queryUrl = "https://restcountries.eu/rest/v2/alpha/" + countryName
   var request = new XMLHttpRequest();
   request.open("GET", queryUrl);
 
@@ -90,6 +131,7 @@ var countryRequest = function (countryName, map) {
     map.googleMap.setCenter(coords)
     weatherRequest(lat, long);
     save(country[0])
+    bordering(country[0].borders)
   })
   request.send();
 }
@@ -108,6 +150,7 @@ var addCountriesToSelect = function(countries) {
   countries.forEach(function(country){
     var option = document.createElement("option");
     option.innerText = country.name;
+    option.value = country.alpha3Code;
     selector.appendChild(option);
   })
 }

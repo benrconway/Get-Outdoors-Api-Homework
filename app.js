@@ -13,7 +13,8 @@ var app = function(){
 
   var countrySelector = document.getElementById("countries-list")
     countrySelector.addEventListener("change", function(){
-    var countryName = countrySelector.value;
+    var countryCode = countrySelector.value;
+    console.log(countrySelector.value);
     countryRequest(countryName, mainMap);
   })
 
