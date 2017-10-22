@@ -1,4 +1,14 @@
-body{
+macro-container{
   display: flex;
   flex-wrap: wrap;
+}
+
+#p-map{
+  height: 250px;
+  width: 250px;
+}
+
+.flag-image{
+  height: 80px;
+  border: 1px solid black;
 }

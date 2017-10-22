@@ -46,14 +46,22 @@ var filterByRegion = function(regionName){
 
 var displayCountryDetails = function(country) {
 var parentDiv = document.getElementById("p-info");
+while(parentDiv.firstChild){parentDiv.removeChild(parentDiv.firstChild)}
+
 var details = document.createElement("p")
 details.innerHTML = "<b>" + country.name + "</b><br>Population: " +
  country.population + ".<br>Native Language: " + country.languages[0].nativeName
  + " (" + country.languages[0].name +").";
 parentDiv.appendChild(details);
+
+var img = document.createElement("img");
+img.className = "flag-image";
+img.src = country.flag;
+parentDiv.appendChild(img);
+
 }
 
-var countryRequest = function (countryName) {
+var countryRequest = function (countryName, map) {
   var queryUrl = "https://restcountries.eu/rest/v2/name/" + countryName.toLowerCase() + "?fullText=true"
   var request = new XMLHttpRequest();
   request.open("GET", queryUrl);
@@ -61,6 +69,13 @@ var countryRequest = function (countryName) {
   request.addEventListener("load", function() {
     var country = JSON.parse(this.responseText);
     displayCountryDetails(country[0]);
+
+
+    var lat = country[0].latlng[0];
+    var long = country[0].latlng[1];
+    map.adjustZoom(country[0].area)
+    map.googleMap.setCenter(new google.maps.LatLng(lat ,long))
+    console.log("zoom", map.googleMap.getZoom());
   })
   request.send();
 }
