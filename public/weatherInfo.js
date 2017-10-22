@@ -4,7 +4,7 @@ var displayWeather = function(weather) {
   while(parentDiv.firstChild){parentDiv.removeChild(parentDiv.firstChild)}
   var details = document.createElement("p");
   details.innerHTML = "<b>Current Weather Summary</b><br>" + weather.currently.summary
-  + "<br>Temperature: " + weather.currently.temperature + '\U+00B0' + "C";
+  + "<br>Temperature: " + weather.currently.temperature + '&#176;' + "C";
   parentDiv.appendChild(details);
 }
 
