@@ -22,7 +22,6 @@ MapWrapper.prototype.addMarker = function(coords, infoWindowContent) {
 }
 
 MapWrapper.prototype.adjustZoom = function (integer) {
-  console.log("integer is: ", integer);
 if(integer > 10000000) {this.googleMap.setZoom(3.5)};
 
 if(integer < 99999999 && integer > 9550000) this.googleMap.setZoom(4);

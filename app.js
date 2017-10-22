@@ -17,6 +17,8 @@ var app = function(){
     countryRequest(countryName, mainMap);
   })
 
+  reloadLastCountry(mainMap);
+
 
 
   //

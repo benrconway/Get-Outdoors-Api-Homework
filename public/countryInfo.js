@@ -43,6 +43,17 @@ var filterByRegion = function(regionName){
   request.send();
 }
 
+var reloadLastCountry = function(map) {
+  if(localStorage.getItem('savedSelection')){
+    var savedCountry = JSON.parse(localStorage.getItem("savedSelection"));
+    countryRequest(savedCountry.name, map);
+  }
+}
+
+var save = function(itemToSave) {
+  var jsonString = JSON.stringify(itemToSave);
+  localStorage.setItem("savedSelection", jsonString)
+}
 
 var displayCountryDetails = function(country) {
 var parentDiv = document.getElementById("p-info");
@@ -72,12 +83,13 @@ var countryRequest = function (countryName, map) {
 
     var lat = country[0].latlng[0];
     var long = country[0].latlng[1];
-    var area = country[0].area
-
+    var area = country[0].area;
+    var coords = {lat: lat, lng: long};
+    map.addMarker(coords, country[0].name)
     map.adjustZoom(area)
-    map.googleMap.setCenter(new google.maps.LatLng(lat ,long))
-
+    map.googleMap.setCenter(coords)
     weatherRequest(lat, long);
+    save(country[0])
   })
   request.send();
 }
@@ -114,5 +126,4 @@ var prePopulateCountries = function() {
   });
 
   request.send();
-  // reloadLastCountry();
 }
