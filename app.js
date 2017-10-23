@@ -15,24 +15,10 @@ var app = function(){
     countrySelector.addEventListener("change", function(){
     var countryCode = countrySelector.value;
     console.log(countrySelector.value);
-    countryRequest(countryName, mainMap);
+    countryRequest(countryCode, mainMap);
   })
 
   reloadLastCountry(mainMap);
-
-
-
-  //
-  // var moveCentre = function(lat, long) {
-  //   // var mapDiv = document.getElementById("p-map");
-  //   // var mainMap = new MapWrapper(mapDiv);
-  //   console.log(lat);
-  //   console.log(long);
-  //   mainMap.panTo(lat, long)
-  //   console.log(mainMap);
-  // }
-
-
 }
 
 

@@ -19,6 +19,7 @@ var weatherRequest = function(lat,long){
   request.addEventListener("load", function() {
     var weather = JSON.parse(this.responseText);
     displayWeather(weather);
+    console.log("Weather is here:", weather);
   })
 
   request.send()
